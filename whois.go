@@ -21,6 +21,8 @@ import (
 const (
 	WHOIS_DOMAIN = "whois-servers.net"
 	WHOIS_PORT   = "43"
+	TIMEOUT      = 15
+	READ_TIMEOUT = 10
 )
 
 func Version() string {
@@ -84,7 +86,7 @@ func query(domain string, servers ...string) (result string, err error) {
 		server = servers[0]
 	}
 
-	conn, e := net.DialTimeout("tcp", net.JoinHostPort(server, WHOIS_PORT), time.Second*30)
+	conn, e := net.DialTimeout("tcp", net.JoinHostPort(server, WHOIS_PORT), time.Second*TIMEOUT)
 	if e != nil {
 		err = e
 		return
@@ -96,7 +98,7 @@ func query(domain string, servers ...string) (result string, err error) {
 	bufReader := bufio.NewReader(conn)
 
 	for {
-		conn.SetReadDeadline(time.Now().Add(time.Second * 10))
+		conn.SetReadDeadline(time.Now().Add(time.Second * READ_TIMEOUT))
 		b, e := bufReader.ReadBytes('\n')
 		if e != nil {
 			if e == io.EOF {
