@@ -10,8 +10,9 @@
 package whois
 
 import (
+	"bufio"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net"
 	"strings"
 	"time"
@@ -90,14 +91,22 @@ func query(domain string, servers ...string) (result string, err error) {
 	}
 
 	defer conn.Close()
-	conn.Write([]byte(domain + "\r\n"))
-	buffer, e := ioutil.ReadAll(conn)
-	if e != nil {
-		err = e
-		return
-	}
 
-	result = string(buffer)
+	conn.Write([]byte(domain + "\r\n"))
+	bufReader := bufio.NewReader(conn)
+
+	for {
+		conn.SetReadDeadline(time.Now().Add(time.Second * 10))
+		b, e := bufReader.ReadBytes('\n')
+		if e != nil {
+			if e == io.EOF {
+				break
+			}
+			err = e
+			return
+		}
+		result += string(b)
+	}
 
 	return
 }
