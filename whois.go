@@ -86,7 +86,7 @@ func query(domain string, servers ...string) (result string, err error) {
 		server = servers[0]
 	}
 
-	conn, e := net.DialTimeout("tcp", net.JoinHostPort(server, WHOIS_PORT), time.Second*TIMEOUT)
+	conn, e := net.DialTimeout("tcp4", net.JoinHostPort(server, WHOIS_PORT), time.Second*TIMEOUT)
 	if e != nil {
 		err = e
 		return
