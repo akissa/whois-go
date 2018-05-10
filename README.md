@@ -2,7 +2,7 @@
 
 whois-go is a simple Go module for domain whois.
 
-[![Build Status](https://secure.travis-ci.org/likexian/whois-go.png)](https://secure.travis-ci.org/likexian/whois-go)
+[![Build Status](https://travis-ci.org/akissa/whois-go.svg?branch=master)](https://secure.travis-ci.org/akissa/whois-go)
 
 ## Overview
 
@@ -14,12 +14,12 @@ whois: A golang cli command for domain whois query.
 
 ## Installation
 
-    go get github.com/likexian/whois-go
+    go get github.com/akissa/whois-go
 
 ## Importing
 
     import (
-        "github.com/likexian/whois-go"
+        "github.com/akissa/whois-go"
     )
 
 ## Documentation
