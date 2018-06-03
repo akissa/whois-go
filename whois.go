@@ -22,7 +22,7 @@ const (
 	WHOIS_DOMAIN = "whois-servers.net"
 	WHOIS_PORT   = "43"
 	TIMEOUT      = 15
-	READ_TIMEOUT = 10
+	READ_TIMEOUT = 20
 )
 
 func Version() string {
